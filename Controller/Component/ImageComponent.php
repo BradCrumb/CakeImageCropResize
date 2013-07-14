@@ -30,17 +30,16 @@ class ImageComponent extends Component {
  */
 	public function resize($path, $options = array()) {
 		$options = array_merge(array(
-									'width' => null,
-									'height' => null,
-									'aspect' => true,
-									'crop' => false,
-									'cropvars' => array(),
-									'autocrop' => false,
-									'htmlAttributes' => array(),
-									'return' => false,
-									'quality' => 90,
-									'urlOnly' => true), $options
-									);
+			'width'				=> null,	//Width of the new Image, Default is Original Width
+			'height'			=> null,	//Height of the new Image, Default is Original Height
+			'aspect'			=> true,	//Keep aspect ratio
+			'crop'				=> false,	//Crop the Image
+			'cropvars'			=> array(), //How to crop the image, array($startx, $starty, $endx, $endy);
+			'autocrop'			=> false,	//Auto crop the image, calculate the crop according to the size and crop from the middle
+			'htmlAttributes'	=> array(),	//Html attributes for the image tag
+			'quality'			=> 90,		//Quality of the image
+			'urlOnly'			=> true		//Return only the URL or return the Image tag
+		), $options);
 
 		foreach ($options as $key => $option) {
 			${$key} = $option;
