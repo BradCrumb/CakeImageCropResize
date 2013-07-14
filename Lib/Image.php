@@ -1,8 +1,10 @@
 <?php
 class Image {
 
-	public static function resize($path, $width, $height, $options = array()) {
+	public static function resize($path, $options = array()) {
 		$options = array_merge(array(
+									'width' => null,
+									'height' => null,
 									'aspect' => true,
 									'crop' => false,
 									'cropvars' => array(),
@@ -10,7 +12,7 @@ class Image {
 									'htmlAttributes' => array(),
 									'return' => false,
 									'quality' => 90,
-									'urlOnly' => false), $options
+									'urlOnly' => true), $options
 									);
 
 		foreach ($options as $key => $option) {
@@ -59,7 +61,6 @@ class Image {
 		}
 
 		if (($width > $size[0] || $height > $size[1]) && $autocrop) {
-
 			$multiplier = 1.0;
 			while (($width * $multiplier >= $size[0]) || ($height * $multiplier >= $size[1])) {
 				$multiplier -= .01;

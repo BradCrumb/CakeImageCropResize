@@ -1,26 +1,39 @@
 <?php
 App::uses('AppHelper', 'View/Helper');
-App::uses('Image', 'Sofia.Lib');
+
 class ImageHelper extends AppHelper {
 
 	public $helpers = array('Html');
 
 /**
- * Automatically resizes an image and returns formatted IMG tag
+ * Default Constructor
  *
- * @param string $path Path to the image file, relative to the webroot/img/ directory.
- * @param integer $width Image of returned image
- * @param integer $height Height of returned image
- * @param boolean $aspect Maintain aspect ratio (default: true)
- * @param array    $htmlAttributes Array of HTML attributes.
- * @param boolean $return Wheter this method should return a value or output it. This overrides AUTO_OUTPUT.
+ * @param View $View The View this helper is being attached to.
+ * @param array $settings Configuration settings for the helper.
+ */
+	public function __construct(View $View, $settings = array()) {
+		parent::__construct($View, $settings);
+
+		$explode = explode('/',realpath(__DIR__ . DS . '..' . DS . '..'));
+		$pluginName = end($explode);
+
+		App::uses('Image', $pluginName . '.Lib');
+	}
+
+/**
+ * Automatically resizes and/or crops an image and returns formatted IMG tag or URL
  *
- * @return mixed    Either string or echos the value, depends on AUTO_OUTPUT and $return.
+ * @param string $path Path to the image file
+ * @param array $options
+ *
+ * @return mixed Image tag or URL of the resized/cropped image
  *
  * @access public
  */
-	public function resize($path, $width, $height, $options = array()) {
+	public function resize($path, $options = array()) {
 		$options = array_merge(array(
+									'width' => null,
+									'height' => null,
 									'aspect' => true,
 									'crop' => false,
 									'cropvars' => array(),
@@ -35,8 +48,9 @@ class ImageHelper extends AppHelper {
 			${$key} = $option;
 		}
 
-		$relFile = Image::resize($path, $width, $height,$options);
+		$relFile = Image::resize($path, $options);
 
+		//Return only the URL
 		if ($options['urlOnly']) {
 			return $relFile;
 		}

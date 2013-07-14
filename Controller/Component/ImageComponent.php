@@ -1,11 +1,37 @@
 <?php
-App::uses('Image', 'Sofia.Lib');
 class ImageComponent extends Component {
 
 	public $helpers = array('Html');
 
-	public function resize($path, $width, $height, $options = array()) {
+/**
+ * Constructor
+ *
+ * @param ComponentCollection $collection A ComponentCollection this component can use to lazy load its components
+ * @param array $settings Array of configuration settings.
+ */
+	public function __construct(ComponentCollection $collection, $settings = array()) {
+		parent::__construct($collection, $settings);
+
+		$explode = explode('/',realpath(__DIR__ . DS . '..' . DS . '..'));
+		$pluginName = end($explode);
+
+		App::uses('Image', $pluginName . '.Lib');
+	}
+
+/**
+ * Automatically resizes and/or crops an image and returns formatted IMG tag or URL
+ *
+ * @param string $path Path to the image file
+ * @param array $options
+ *
+ * @return mixed Image tag or URL of the resized/cropped image
+ *
+ * @access public
+ */
+	public function resize($path, $options = array()) {
 		$options = array_merge(array(
+									'width' => null,
+									'height' => null,
 									'aspect' => true,
 									'crop' => false,
 									'cropvars' => array(),
@@ -20,24 +46,13 @@ class ImageComponent extends Component {
 			${$key} = $option;
 		}
 
-		$relFile = Image::resize($path, $width, $height,$options);
+		$relFile = Image::resize($path, $options);
 
+		//Return only the URL
 		if ($options['urlOnly']) {
 			return $relFile;
 		}
 
-		return sprintf($this->Html->tags['image'], $relFile, $this->Html->_parseAttributes($options['htmlAttributes'], null, '', ' '));
-	}
-
-	public function render($path) {
-		$size = getimagesize(WWW_ROOT . $path);
-		$mime = $size['mime'];
-
-		$data = file_get_contents(WWW_ROOT . $path);
-
-		header("Content-Type: $mime");
-		header('Content-Length: ' . strlen($data));
-		echo $data;
-		exit();
+		return $this->Html->image($relFile,$options['htmlAttributes']);
 	}
 }
