@@ -14,7 +14,7 @@ class ImageHelper extends AppHelper {
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 
-		$explode = explode('/',realpath(__DIR__ . DS . '..' . DS . '..'));
+		$explode = explode(DS,realpath(__DIR__ . DS . '..' . DS . '..'));
 		$pluginName = end($explode);
 
 		App::uses('Image', $pluginName . '.Lib');

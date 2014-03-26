@@ -12,7 +12,7 @@ class ImageComponent extends Component {
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		parent::__construct($collection, $settings);
 
-		$explode = explode('/',realpath(__DIR__ . DS . '..' . DS . '..'));
+		$explode = explode(DS,realpath(__DIR__ . DS . '..' . DS . '..'));
 		$pluginName = end($explode);
 
 		App::uses('Image', $pluginName . '.Lib');
