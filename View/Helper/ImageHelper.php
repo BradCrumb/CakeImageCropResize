@@ -1,24 +1,13 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
+namespace App\View\Helper;
 
-class ImageHelper extends AppHelper {
+use Cake\View\Helper;
+use Cake\View\View;
+use App\Lib\Image;
+
+class ImageHelper extends Helper {
 
 	public $helpers = array('Html');
-
-/**
- * Default Constructor
- *
- * @param View $View The View this helper is being attached to.
- * @param array $settings Configuration settings for the helper.
- */
-	public function __construct(View $View, $settings = array()) {
-		parent::__construct($View, $settings);
-
-		$explode = explode(DS,realpath(__DIR__ . DS . '..' . DS . '..'));
-		$pluginName = end($explode);
-
-		App::uses('Image', $pluginName . '.Lib');
-	}
 
 /**
  * Automatically resizes and/or crops an image and returns formatted IMG tag or URL
