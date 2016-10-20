@@ -1,4 +1,6 @@
 <?php
+namespace App\Lib;
+
 class Image {
 
 	public static function resize($path, $options = array()) {
