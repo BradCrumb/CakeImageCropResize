@@ -14,8 +14,8 @@ The master branch has the following requirements:
 
 ## Installation
 
-* Clone/Copy the files in this directory into `app/Plugin/ImageCropResize`
-* Ensure the plugin is loaded in `app/Config/bootstrap.php` by calling `CakePlugin::load('ImageCropResize');`
+* Clone/Copy the files in this directory into `plugins/ImageCropResize`
+* Ensure the plugin is loaded in `config/bootstrap.php` by calling `Plugin::load('ImageCropResize');` unless you already use `Plugin::loadAll()`
 * Include the component in your `AppController.php`:
 	* `Inside the initialize() method: $this->loadComponent('Image')`
 * Or include the helper in your `AppView.php`:
