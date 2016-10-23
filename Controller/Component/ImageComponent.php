@@ -3,7 +3,6 @@ namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 use App\Lib\Image;
-use Cake\View\Helper\HtmlHelper;
 
 class ImageComponent extends Component {
 
@@ -38,6 +37,7 @@ class ImageComponent extends Component {
 
 		$relFile = Image::resize($path, $options);
 
+		//Return only the URL
 		return $relFile;
 	}
 }

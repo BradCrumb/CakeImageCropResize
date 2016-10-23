@@ -2,7 +2,6 @@
 namespace App\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
 use App\Lib\Image;
 
 class ImageHelper extends Helper {
