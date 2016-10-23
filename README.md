@@ -9,17 +9,17 @@ The Helper and/or Component gives you the ability to leave your original images 
 
 The master branch has the following requirements:
 
-* CakePHP 2.2.0 or greater.
-* PHP 5.3.0 or greater.
+* CakePHP 3.0.0 or greater.
+* PHP 5.5.9 or greater.
 
 ## Installation
 
-* Clone/Copy the files in this directory into `app/Plugin/ImageCropResize`
-* Ensure the plugin is loaded in `app/Config/bootstrap.php` by calling `CakePlugin::load('ImageCropResize');`
+* Clone/Copy the files in this directory into `plugins/ImageCropResize`
+* Ensure the plugin is loaded in `config/bootstrap.php` by calling `Plugin::load('ImageCropResize');` unless you already use `Plugin::loadAll()`
 * Include the component in your `AppController.php`:
-	* `public $components = array('ImageCropResize.Image');`
-* Or include the helper in your `AppController.php`:
-	* `public $helpers = array('ImageCropResize.Image');`
+	* `Inside the initialize() method: $this->loadComponent('Image')`
+* Or include the helper in your `AppView.php`:
+	* `Inside the initialize() method: $this->loadHelper('Image');`
 
 ## Documentation
 Both the Helper and Component have resize method that can be used as follow:
@@ -38,4 +38,5 @@ Both the Helper and Component have resize method that can be used as follow:
 
 	echo $this->Image->resize($imagePath, $options);
 
+Note: the urlOnly feature isn't available for the component so it only generates the URL for the cached image.
 The resized image will be cached inside the webroot/img/cache directory. So we only have cached images inside or webroot and leave the originals outside the webroot.
